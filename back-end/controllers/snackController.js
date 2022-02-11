@@ -1,7 +1,8 @@
 // DEPENDENCIES
 const express = require("express");
 const snacksRoute = express.Router();
-const { getAllSnacks, getOneSnack, deleteSnack } = require("../queries/snacks");
+
+const { getAllSnacks, getOneSnack, deleteSnack, createSnack} = require("../queries/snacks");
 
 snacksRoute.get('/', async (_, response) => {
   const allSnacks = await getAllSnacks();
@@ -12,18 +13,27 @@ snacksRoute.get('/', async (_, response) => {
 });
 
 // Get a specific snack by id
-snacksRoute.get("/:id", async (req, res) => {
 
-  const { id } = req.params;
+snacksRoute.get("/:id", async (request, response) => {
+
+  const { id } = request.params;
   const snack = await getOneSnack(id);
 
   if (snack.id) {
-    res.status(200).json(snack);
+    response.status(200).json(snack);
   } else {
-    res.status(500).json({ error: `${id} does not exist` });
+    response.status(500).json({ error: `${id} does not exist` });
   }
 
 });
+
+
+// Post
+snacksRoute.post("/", async (request, response) => {
+  const newSnack = await createSnack(request.body)
+  response.status(200).json(newSnack)
+})
+
 
   snacksRoute.delete('/:id', async (request, response) => {
     const deletedSnack = await deleteSnack(request.params.id);

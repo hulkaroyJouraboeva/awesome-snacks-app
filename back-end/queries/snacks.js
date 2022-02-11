@@ -21,6 +21,21 @@ const getOneSnack = async (id) => {
     }
 }
 
+
+// Create a new snack-log
+const createSnack = async (snack) => {
+
+    const {name, fiber, protein, added_sugar, is_healthy, image} = snack
+    
+        try{
+            const newSnack = await db.one("INSERT INTO snacks (name, fiber, protein, added_sugar, is_healthy, image) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",[name, fiber, protein, added_sugar, is_healthy, image])
+            return newSnack
+        }catch(err) {
+            return err
+        }
+    
+    }
+
 const deleteSnack = async (id) => {
     try {
         const deletedSnack = await db.one(`
@@ -37,5 +52,6 @@ const deleteSnack = async (id) => {
 module.exports = {
     getAllSnacks,
     deleteSnack,
-    getOneSnack
+    getOneSnack,
+    createSnack,
 };

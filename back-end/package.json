@@ -7,8 +7,8 @@
     "node": "v16.5.0"
   },
   "scripts": {
-    "db:init": "psql -U postgres -f db/schema.sql",
-    "db:seed": "psql -U postgres -f db/seed.sql",
+    "schema": "psql -U postgres -f db/schema.sql",
+    "seed": "psql -U postgres -f db/seed.sql",
     "start": "node server.js",
     "test": "jest --runInBand",
     "dev": "nodemon server.js"

@@ -11,6 +11,17 @@ const getAllSnacks = async () => {
     };
 };
 
+// Get id
+const getOneSnack = async (id) => {
+    try{
+        const oneSnack = await db.one("SELECT * FROM snacks WHERE id=$1", id)
+        return oneSnack
+    }catch (err) {
+        return err
+    }
+}
+
 module.exports = {
     getAllSnacks,
+    getOneSnack,
 };

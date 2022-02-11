@@ -72,7 +72,6 @@ module.exports = {
     getAllSnacks,
     deleteSnack,
     getOneSnack,
-    updateSnack
-    createSnack,
-
+    updateSnack,
+    createSnack
 };

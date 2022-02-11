@@ -1,7 +1,10 @@
 // DEPENDENCIES
 const express = require("express");
 const snacksRoute = express.Router();
-const { getAllSnacks, getOneSnack, deleteSnack, updateSnack } = require("../queries/snacks");
+
+
+const { getAllSnacks, getOneSnack, deleteSnack, createSnack, updateSnack } = require("../queries/snacks");
+
 
 snacksRoute.get('/', async (_, response) => {
     const allSnacks = await getAllSnacks();
@@ -11,21 +14,30 @@ snacksRoute.get('/', async (_, response) => {
     : response.status(404).json({ error: 'all snacks data is empty' });
 });
 
+
 // Get a specific snack by id
-snacksRoute.get("/:id", async (req, res) => {
+snacksRoute.get("/:id", async (request, response) => {
 
-    const { id } = req.params;
-    const snack = await getOneSnack(id);
+  const { id } = request.params;
+  const snack = await getOneSnack(id);
 
-    if (snack.id) {
-    res.status(200).json(snack);
-    } else {
-    res.status(500).json({ error: `${id} does not exist` });
-    }
+  if (snack.id) {
+    response.status(200).json(snack);
+  } else {
+    response.status(500).json({ error: `${id} does not exist` });
+  }
 
 });
 
-snacksRoute.delete('/:id', async (request, response) => {
+
+// Post
+snacksRoute.post("/", async (request, response) => {
+  const newSnack = await createSnack(request.body)
+  response.status(200).json(newSnack)
+})
+
+
+  snacksRoute.delete('/:id', async (request, response) => {
     const deletedSnack = await deleteSnack(request.params.id);
 
     deletedSnack.id 

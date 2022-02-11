@@ -8,21 +8,21 @@ const snacksRoute = require("./controllers/snackController");
 const app = express();
 
 // MIDDLEWARE
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (_, res) => {
-    console.log("Request to GET /")
-    res.send("Welcome to our Snack-Logs")
-})
+    console.log("Request to GET /");
+    res.send("Welcome to our Snack-Logs");
+});
 
 // ROUTES
-app.use("/snacks", snacksRoute)
+app.use("/snacks", snacksRoute);
 
 app.get("*", (_, res) => {
-    console.log("Invalid URL Detected")
+    console.log("Invalid URL Detected");
     res.status(404).json({ error: "Page not found" });
-})
+});
 
 
 // EXPORT

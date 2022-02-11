@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.get("/", (_, res) => {
     console.log("Request to GET /");
-    res.send("Welcome to our Snack-Logs");
+    res.send("Get Snack'n at Snack-a-log!");
 });
 
 // ROUTES

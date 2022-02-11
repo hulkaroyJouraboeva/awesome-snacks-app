@@ -11,6 +11,16 @@ const getAllSnacks = async () => {
     };
 };
 
+// Get id
+const getOneSnack = async (id) => {
+    try{
+        const oneSnack = await db.one("SELECT * FROM snacks WHERE id=$1", id)
+        return oneSnack
+    }catch (err) {
+        return err
+    }
+}
+
 const deleteSnack = async (id) => {
     try {
         const deletedSnack = await db.one(`
@@ -26,5 +36,6 @@ const deleteSnack = async (id) => {
 
 module.exports = {
     getAllSnacks,
-    deleteSnack
+    deleteSnack,
+    getOneSnack
 };

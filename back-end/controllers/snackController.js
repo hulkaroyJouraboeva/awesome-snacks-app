@@ -1,6 +1,7 @@
 // DEPENDENCIES
 const express = require("express");
 const snacksRoute = express.Router();
+
 const { getAllSnacks, getOneSnack, deleteSnack, createSnack} = require("../queries/snacks");
 
 snacksRoute.get('/', async (_, response) => {
@@ -12,6 +13,7 @@ snacksRoute.get('/', async (_, response) => {
 });
 
 // Get a specific snack by id
+
 snacksRoute.get("/:id", async (request, response) => {
 
   const { id } = request.params;
@@ -24,6 +26,7 @@ snacksRoute.get("/:id", async (request, response) => {
   }
 
 });
+
 
 // Post
 snacksRoute.post("/", async (request, response) => {

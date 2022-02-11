@@ -21,6 +21,7 @@ const getOneSnack = async (id) => {
     }
 }
 
+
 // Create a new snack-log
 const createSnack = async (snack) => {
 
@@ -53,5 +54,4 @@ module.exports = {
     deleteSnack,
     getOneSnack,
     createSnack,
-
 };

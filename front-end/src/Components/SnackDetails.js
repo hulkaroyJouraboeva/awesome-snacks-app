@@ -13,13 +13,17 @@ export default function SnackDetails() {
     useEffect(() => {
         axios
             .get(`${API}/snacks/${id}`)
-            .then((response) => setSnack(response.data))
+            .then((response) => {
+                setSnack(response.data)
+                console.log(response.data)
+            })
             .catch((error) => console.warn(error));
     }, [API, id]);
+    console.log(snack)
 
     const handleDelete = () => {
         axios
-            .delete(`${API}/snacks/:id`)
+            .delete(`${API}/snacks/${id}`)
             .then(() => navigate('/snacks'))
             .catch((error) => console.warn(error));
     };

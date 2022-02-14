@@ -2,12 +2,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Edit from './Pages/Edit';
 import Show from './Pages/Show';
 import Index from "./Pages/Index";
+
 import NavBar from "./Components/NavBar";
+import "./Styles/index.css"
 
 export default function App() {
   return (
     <BrowserRouter>
       <NavBar />
+
       <main>
         <Routes>
           <Route path="/snacks" element={<Index />} />
@@ -16,5 +19,6 @@ export default function App() {
         </Routes>
       </main>
     </BrowserRouter>
+
   );
 };

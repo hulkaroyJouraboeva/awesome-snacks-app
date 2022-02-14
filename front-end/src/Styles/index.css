@@ -3,11 +3,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Carter+One&family=Overlock&display=swap');
 
 body {
-    font-family: "Overlock";
+    font-family: "Overlock", cursive;
 }
 
 h1 {
-    font-family: "Carter One";
+    font-family: 'Carter One', cursive;
 
 }
 
@@ -42,8 +42,12 @@ article {
     justify-content: space-between;
     padding:1em;
 }
-.snack div{
+article .Snack{
     width: 150px;
     padding: 1em;
     background-color: rgb(255, 252, 242);
+}
+
+.Snacks img {
+    width: 150px;
 }

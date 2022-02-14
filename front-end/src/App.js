@@ -1,11 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Edit from './Pages/Edit';
+import Show from './Pages/Show';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <h1>Hello, world!</h1>
-    </div>
+    <BrowserRouter>
+      <main>
+        <Routes>
+          <Route exact path='/snacks/:id' element={<Show />} />
+          <Route path='/snacks/:id/edit' element={<Edit />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
-}
-
-export default App;
+};

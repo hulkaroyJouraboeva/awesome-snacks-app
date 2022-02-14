@@ -1,4 +1,5 @@
 // DEPENDENCIES
+const confirmHealth  = require("../confirmHealth");
 const express = require("express");
 const snacksRoute = express.Router();
 const { getAllSnacks, getOneSnack, deleteSnack, createSnack, updateSnack } = require("../queries/snacks");
@@ -22,7 +23,8 @@ snacksRoute.get("/:id", async (request, response) => {
   if (snack.id) {
     response.status(200).json({
       success: true,
-      payload: snack});
+      payload: snack
+    });
   } else {
     response.status(404).json({
       success: false,
@@ -34,7 +36,7 @@ snacksRoute.get("/:id", async (request, response) => {
 // Post
 snacksRoute.post("/", async (request, response) => {
   const newSnack = await createSnack(request.body)
-
+  
   if (newSnack.name && newSnack.image) {
     const nameArr = newSnack.name.split(' ');
     let formattedName = []
@@ -45,7 +47,9 @@ snacksRoute.post("/", async (request, response) => {
         formattedName.push(w)
       }
     }
+
     newSnack.name = formattedName.join(' ');
+    newSnack.is_healthy = confirmHealth(newSnack);
     
     response.status(200).json({
       success: true,
@@ -55,14 +59,21 @@ snacksRoute.post("/", async (request, response) => {
   } else if (!newSnack.image) {
     newSnack.image = "https://dummyimage.com/400x400/6e6c6e/e9e9f5.png&text=No+Image";
     const formattedName = newSnack.name
-      .split(' ')
-      .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
-      .join(' ');
+    .split(' ')
+    .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
+    .join(' ');
+    
     newSnack.name = formattedName;
-
+    newSnack.is_healthy = confirmHealth(newSnack);
+    
     response.status(200).json({
       success: true,
       payload: newSnack
+    });
+  } else {
+    response.status(404).json({
+      success: false,
+      payload: 'not found'
     });
   };
 });

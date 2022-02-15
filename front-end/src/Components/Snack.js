@@ -12,7 +12,7 @@ export default function Snack({ snack }) {
       </h4>
 
       {/* <button><a href={URL}>Show</a></button> */}
-      <Link to={`snacks/${snack.id}`}>show</Link>
+      <Link to={`/snacks/${snack.id}`}>show</Link>
     </>
   );
 }

@@ -11,7 +11,6 @@ export default function Snack({ snack }) {
         {snack.name} <HeartHealth snackHealth={snack.is_healthy} />
       </h4>
 
-      {/* <button><a href={URL}>Show</a></button> */}
       <Link to={`/snacks/${snack.id}`}>show</Link>
     </>
   );

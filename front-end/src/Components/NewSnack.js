@@ -13,41 +13,27 @@ export default function NewSnack() {
     fiber: 0,
     protein: 0,
     added_sugar: 0,
-    is_healthy: false,
   });
 
   const handleChange = (event) => {
     console.log(event.target.id, event.target.value);
-    // if (
-    //   (snack.protein >= 5 && snack.added_sugar < 5) ||
-    //   (snack.fiber >= 5 && snack.added_sugar < 5)
-    // ) {
-    //   setSnack({ ...snack, is_healthy: true });
-    // }
-    event.target.id === "fiber" ||
-    event.target.id === "protein" ||
-    event.target.id === "added_sugar"
-      ? setSnack({
-          ...snack,
-          [event.target.id]: Number(event.target.value),
-        })
-      : setSnack({
-          ...snack,
-          [event.target.id]: event.target.value,
-        });
+
+    setSnack({
+      ...snack,
+      [event.target.id]: event.target.value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios.post(`${API}/snacks`, snack).then(() => {
-      if (
-        (snack.protein >= 5 && snack.added_sugar < 5) ||
-        (snack.fiber >= 5 && snack.added_sugar < 5)
-      ) {
-        setSnack({ ...snack, is_healthy: true });
-      }
-
+      // if (
+      //   (Number(snack.protein) >= 5 && Number(snack.added_sugar) < 5) ||
+      //   (Number(snack.fiber) >= 5 && Number(snack.added_sugar) < 5)
+      // ) {
+      //   setSnack({ ...snack, is_healthy: true });
+      // }
       navigate("/snacks");
     });
   };
@@ -56,8 +42,7 @@ export default function NewSnack() {
   console.log(
     typeof snack.fiber,
     typeof snack.protein,
-    typeof snack.added_sugar,
-    snack.is_healthy
+    typeof snack.added_sugar
   );
   return (
     <>
@@ -84,7 +69,7 @@ export default function NewSnack() {
         <label htmlFor="fiber">Fiber:</label>
         <input
           id="fiber"
-          value={snack.fiber.toString()}
+          value={snack.fiber}
           type="number"
           onChange={handleChange}
           required
@@ -93,7 +78,7 @@ export default function NewSnack() {
         <label htmlFor="protein">Protein:</label>
         <input
           id="protein"
-          value={snack.protein.toString()}
+          value={snack.protein}
           type="number"
           onChange={handleChange}
           required
@@ -102,7 +87,7 @@ export default function NewSnack() {
         <label htmlFor="added_sugar">Added Sugar:</label>
         <input
           id="added_sugar"
-          value={snack.added_sugar.toString()}
+          value={snack.added_sugar}
           type="number"
           onChange={handleChange}
           required

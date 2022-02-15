@@ -7,10 +7,10 @@ export default function Snack({ snack }) {
   return (
     <>
       <img src={snack.image} alt="visual of the snack" />
-      <h4>{snack.name}</h4>
       <h4>
-        <HeartHealth snackHealth={snack.is_healthy} />
+        {snack.name} <HeartHealth snackHealth={snack.is_healthy} />
       </h4>
+
       <Link to={`/snacks/${snack.id}`}>show</Link>
     </>
   );

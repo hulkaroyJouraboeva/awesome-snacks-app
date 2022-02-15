@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import HeartHealth from "./HeartHealth";
 
 export default function NewSnack() {
   const navigate = useNavigate();
@@ -17,12 +18,12 @@ export default function NewSnack() {
 
   const handleChange = (event) => {
     console.log(event.target.id, event.target.value);
-    //   if (
-    //       (snack.protein >= 5 && snack.added_sugar < 5) ||
-    //       (snack.fiber >= 5 && snack.added_sugar < 5)
-    //     ) {
-    //       setSnack({ ...snack, is_healthy: true });
-    //     }
+    // if (
+    //   (snack.protein >= 5 && snack.added_sugar < 5) ||
+    //   (snack.fiber >= 5 && snack.added_sugar < 5)
+    // ) {
+    //   setSnack({ ...snack, is_healthy: true });
+    // }
     event.target.id === "fiber" ||
     event.target.id === "protein" ||
     event.target.id === "added_sugar"
@@ -38,7 +39,15 @@ export default function NewSnack() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     axios.post(`${API}/snacks`, snack).then(() => {
+      if (
+        (snack.protein >= 5 && snack.added_sugar < 5) ||
+        (snack.fiber >= 5 && snack.added_sugar < 5)
+      ) {
+        setSnack({ ...snack, is_healthy: true });
+      }
+
       navigate("/snacks");
     });
   };

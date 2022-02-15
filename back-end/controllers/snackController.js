@@ -35,7 +35,9 @@ snacksRoute.get("/:id", async (request, response) => {
 
 // Post
 snacksRoute.post("/", async (request, response) => {
-  const newSnack = await createSnack(request.body)
+  const temp = { ...request.body };
+  temp.is_healthy = confirmHealth(temp);
+  const newSnack = await createSnack(temp);
   
   if (newSnack.name && newSnack.image) {
     const nameArr = newSnack.name.split(' ');

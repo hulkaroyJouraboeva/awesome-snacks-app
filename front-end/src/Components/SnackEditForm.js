@@ -1,4 +1,5 @@
 import axios from "axios";
+import HeartHealth from "./HeartHealth";
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
@@ -32,8 +33,8 @@ export default function SnackEditForm() {
             .catch((error) => console.warn(error))
     }, [API, id]);
 
-    const handleTextChange = () => {
-        
+    const handleTextChange = (event) => {
+       setSnack({...snack, [event.target.id]: event.target.value }); 
     };
 
     const handleSubmit = (event) => {
@@ -44,15 +45,25 @@ export default function SnackEditForm() {
     const updateSnack = (updatedSnack, id) => {
         axios
             .put(`${API}/snacks/${id}`, updatedSnack)
-            .then(() => navigate(`/snacks/${id}`), (error) => console.error(error))
+            .then(() => navigate(`/snacks`), (error) => console.error(error))
             .catch((error) => console.warn("warn", error));
     };
 
     const { name, image, fiber, protein, added_sugar, is_healthy } = snack;
     return (
         <div className="SnackEditForm">
+            <HeartHealth snackHealth={is_healthy} />
+            <img src={image} alt={name} />
+            
             <form onSubmit={handleSubmit}>
-
+                <label htmlFor="image">Image:</label>
+                    <input
+                        id="image"
+                        type="text"
+                        value={image}
+                        placeholder="URL for snack's image"
+                        onChange={handleTextChange}
+                    />
                 <label htmlFor="name">Name:</label>
                     <input
                         id="name"
@@ -61,15 +72,6 @@ export default function SnackEditForm() {
                         onChange={handleTextChange}
                         placeholder="name of the snack"
                         required
-                    />
-                <label htmlFor="image">Image:</label>
-                    <input
-                        id="image"
-                        type="text"
-                        required
-                        value={image}
-                        placeholder="URL for snack's image"
-                        onChange={handleTextChange}
                     />
                 <label htmlFor="fiber">Fiber:</label>
                     <input
@@ -80,7 +82,7 @@ export default function SnackEditForm() {
                         placeholder="snacks's fiber count"
                         onChange={handleTextChange}
                     />
-                <label htmlFor="protein">protein:</label>
+                <label htmlFor="protein">Protein:</label>
                     <input
                         id="protein"
                         type="number"
@@ -101,11 +103,7 @@ export default function SnackEditForm() {
                 <br />
                 <button type="submit">Submit</button>
             </form>
-
-            <br />
-            <hr />
-            <br />
-
+            
             <Link to={`/snacks/${id}`}>
                 <button>Never mind!</button>
             </Link>

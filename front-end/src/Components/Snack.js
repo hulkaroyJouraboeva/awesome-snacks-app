@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 export default function Snack({ snack }) {
   return (
     <>
-      <img src={snack.image} alt='visual of the snack' />
+      <img src={snack.image} alt="visual of the snack" />
+      <h4>{snack.name}</h4>
       <h4>
-        {snack.name} <HeartHealth snackHealth={snack.is_healthy} />
+        <HeartHealth snackHealth={snack.is_healthy} />
       </h4>
-
       <Link to={`/snacks/${snack.id}`}>show</Link>
     </>
   );

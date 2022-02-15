@@ -32,10 +32,83 @@ export default function SnackEditForm() {
             .catch((error) => console.warn(error))
     }, [API, id]);
 
-    const { name, image, fiber, protien, added_sugar, is_healthy } = snack;
+    const handleTextChange = () => {
+        
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        updateSnack(snack, id);
+    };
+
+    const updateSnack = (updatedSnack, id) => {
+        axios
+            .put(`${API}/snacks/${id}`, updatedSnack)
+            .then(() => navigate(`/snacks/${id}`), (error) => console.error(error))
+            .catch((error) => console.warn("warn", error));
+    };
+
+    const { name, image, fiber, protein, added_sugar, is_healthy } = snack;
     return (
         <div className="SnackEditForm">
+            <form onSubmit={handleSubmit}>
 
+                <label htmlFor="name">Name:</label>
+                    <input
+                        id="name"
+                        value={name}
+                        type="text"
+                        onChange={handleTextChange}
+                        placeholder="name of the snack"
+                        required
+                    />
+                <label htmlFor="image">Image:</label>
+                    <input
+                        id="image"
+                        type="text"
+                        required
+                        value={image}
+                        placeholder="URL for snack's image"
+                        onChange={handleTextChange}
+                    />
+                <label htmlFor="fiber">Fiber:</label>
+                    <input
+                        id="fiber"
+                        type="number"
+                        name="fiber"
+                        value={fiber}
+                        placeholder="snacks's fiber count"
+                        onChange={handleTextChange}
+                    />
+                <label htmlFor="protein">protein:</label>
+                    <input
+                        id="protein"
+                        type="number"
+                        name="protein"
+                        value={protein}
+                        placeholder="snacks's protein count"
+                        onChange={handleTextChange}
+                    />
+                <label htmlFor="added_sugar">Added Sugar:</label>
+                    <input
+                        id="added_sugar"
+                        type="number"
+                        name="added_sugar"
+                        value={added_sugar}
+                        placeholder="snacks's added sugar count"
+                        onChange={handleTextChange}
+                    />
+                <br />
+                <button type="submit">Submit</button>
+            </form>
+
+            <br />
+            <hr />
+            <br />
+
+            <Link to={`/snacks/${id}`}>
+                <button>Never mind!</button>
+            </Link>
         </div>
     );
 };

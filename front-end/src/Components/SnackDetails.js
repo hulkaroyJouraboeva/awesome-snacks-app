@@ -14,12 +14,10 @@ export default function SnackDetails() {
         axios
             .get(`${API}/snacks/${id}`)
             .then((response) => {
-                setSnack(response.data)
-                console.log(response.data)
+                setSnack(response.data.payload)
             })
             .catch((error) => console.warn(error));
     }, [API, id]);
-    console.log(snack)
 
     const handleDelete = () => {
         axios
@@ -52,7 +50,7 @@ export default function SnackDetails() {
                     <button onClick={handleDelete}>Delete</button>
                 </div>
                 <div>
-                    <Link to='/snacks/:id/edit'>
+                    <Link to={`/snacks/${id}/edit`}>
                         <button>Edit</button>
                     </Link>
                 </div>

@@ -14,12 +14,10 @@ export default function SnackDetails() {
         axios
             .get(`${API}/snacks/${id}`)
             .then((response) => {
-                console.log(response)
-                setSnack(response.data.payload)
+                setSnack(response.data.payload);
             })
             .catch((error) => console.warn(error));
     }, [API, id]);
-    console.log(snack)
 
     const handleDelete = () => {
         axios
@@ -36,7 +34,7 @@ export default function SnackDetails() {
             </aside>
             <div>
                 <h5>{name}</h5>
-                <img src={image} alt={`visual of ${name}`} />
+                <img src={image} alt={name} />
                 <h6>Protein: {protein}</h6>
                 <h6>Fiber: {fiber}</h6>
                 <h6>Added Sugar: {added_sugar}</h6>

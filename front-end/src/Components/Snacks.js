@@ -1,44 +1,38 @@
-import axios from "axios"
-import { useState, useEffect } from "react"
+import axios from "axios";
+import { useState, useEffect } from "react";
 import Snack from "./Snack";
 
+export default function Snacks() {
+  // REACT HOOK
+  const [snacks, setSnacks] = useState([]);
 
-export default function Snacks () {
+  // API
 
-// REACT HOOK
-const [snacks, setSnacks] = useState([])
-
-
-// API
-const API = process.env.REACT_APP_API_URL;
-
-// Requesting to receive data from Heroku app
-useEffect (() => {
+  const API = process.env.REACT_APP_API_URL;
+  // Requesting to receive data from Heroku app
+  useEffect(() => {
     const fetchData = async () => {
-        console.log("Hitting the useEffect for Index")
-        const res = await axios.get(`https://fullstack-snack-app.herokuapp.com/snacks`)
-        setSnacks(res.data)
-    }
-    fetchData()
-}, []);
+      console.log("Hitting the useEffect for Index");
+      const res = await axios.get(`${API}/snacks`);
+      setSnacks(res.data.payload);
+      console.log(res);
+    };
+    fetchData();
+  }, []);
 
-console.log(snacks)
+  console.log(snacks);
 
-return (
+  return (
     <main>
-        
-
-        <selection className="Snacks">
+      <section className="Snacks">
         <article className="Snacks">
-            <div className="Snack">  { snacks.map((each) => {
-        return <Snack snack ={each} key={each.id} />
-    })}s</div>
+          <div className="Snack">
+            {snacks.map((each) => {
+              return <Snack snack={each} key={each.id} />;
+            })}
+          </div>
         </article>
-
-        </selection>
- 
+      </section>
     </main>
-)
-
-
+  );
 }

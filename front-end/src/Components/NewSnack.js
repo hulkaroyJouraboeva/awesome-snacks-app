@@ -18,32 +18,30 @@ export default function NewSnack() {
   const handleChange = (event) => {
     console.log(event.target.id, event.target.value);
 
-    setSnack({
-      ...snack,
-      [event.target.id]: event.target.value,
-    });
+    event.target.id === "fiber" ||
+    event.target.id === "protein" ||
+    event.target.id === "added_sugar"
+      ? setSnack({
+          ...snack,
+          [event.target.id]: Number(event.target.value),
+        })
+      : setSnack({
+          ...snack,
+          [event.target.id]: event.target.value,
+        });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post(`${API}/snacks`, snack).then(() => {
-      // if (
-      //   (Number(snack.protein) >= 5 && Number(snack.added_sugar) < 5) ||
-      //   (Number(snack.fiber) >= 5 && Number(snack.added_sugar) < 5)
-      // ) {
-      //   setSnack({ ...snack, is_healthy: true });
-      // }
-      navigate("/snacks");
-    });
+    axios
+      .post(`${API}/snacks`, snack)
+      .then(() => {
+        navigate("/snacks");
+      })
+      .catch((err) => console.warn(err));
   };
 
-  console.log(snack);
-  console.log(
-    typeof snack.fiber,
-    typeof snack.protein,
-    typeof snack.added_sugar
-  );
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -69,7 +67,7 @@ export default function NewSnack() {
         <label htmlFor="fiber">Fiber:</label>
         <input
           id="fiber"
-          value={snack.fiber}
+          value={snack.fiber.toString()}
           type="number"
           onChange={handleChange}
           required
@@ -78,7 +76,7 @@ export default function NewSnack() {
         <label htmlFor="protein">Protein:</label>
         <input
           id="protein"
-          value={snack.protein}
+          value={snack.protein.toString()}
           type="number"
           onChange={handleChange}
           required
@@ -87,7 +85,7 @@ export default function NewSnack() {
         <label htmlFor="added_sugar">Added Sugar:</label>
         <input
           id="added_sugar"
-          value={snack.added_sugar}
+          value={snack.added_sugar.toString()}
           type="number"
           onChange={handleChange}
           required

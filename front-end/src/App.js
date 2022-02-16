@@ -1,10 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./Styles/index.css";
 import Edit from "./Pages/Edit";
 import Show from "./Pages/Show";
 import Index from "./Pages/Index";
-
 import NavBar from "./Components/NavBar";
-import "./Styles/index.css";
 import New from "./Pages/New";
 
 export default function App() {
